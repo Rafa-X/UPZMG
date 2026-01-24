@@ -1,0 +1,56 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "UPZMG.Web",
+      "type": "coreclr",
+      "request": "launch",
+      "preLaunchTask": "build",
+      "program": "dotnet",
+      "args": [
+        "run",
+        "--project",
+        "${workspaceFolder}/src/UPZMG.Web/UPZMG.Web.csproj",
+        "--urls",
+        "https://localhost:5002"
+      ],
+      "cwd": "${workspaceFolder}",
+      "env": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      },
+      "console": "integratedTerminal",
+      "stopAtEntry": false
+    },
+    {
+      "name": "UPZMG.Api",
+      "type": "coreclr",
+      "request": "launch",
+      "preLaunchTask": "build",
+      "program": "dotnet",
+      "args": [
+        "run",
+        "--project",
+        "${workspaceFolder}/src/UPZMG.Api/UPZMG.Api.csproj",
+        "--urls",
+        "https://localhost:5003"
+      ],
+      "cwd": "${workspaceFolder}",
+      "env": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      },
+      "console": "integratedTerminal",
+      "stopAtEntry": false
+    }
+  ],
+  "compounds": [
+    {
+      "name": "UPZMG",
+      "configurations": ["UPZMG.Web", "UPZMG.Api"]
+    }
+  ]
+}
+
+// This creates:
+// a debug config for Web
+// a debug config for API
+// a compound config that starts both
