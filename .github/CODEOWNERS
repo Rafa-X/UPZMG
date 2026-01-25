@@ -1,0 +1,12 @@
+# =========================================================
+# UPZMG - CODEOWNERS
+# Everyone owns the entire repository.
+# =========================================================
+
+# Default rule: all files and folders
+* @Rafa-X @KevinHC479 @user3
+
+# (Optional) Explicitly include the main solution structure
+/src/ @Rafa-X @KevinHC479 @Maquinaria01
+/.vscode/ @Rafa-X @KevinHC479 @Maquinaria01
+/db/ @Rafa-X @KevinHC479 @Maquinaria01
