@@ -1,5 +1,3 @@
-using System.ComponentModel.DataAnnotations;
-
 namespace UPZMG.Persistence.Models;
 
 /// <summary>

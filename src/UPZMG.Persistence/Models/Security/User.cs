@@ -10,9 +10,9 @@ namespace UPZMG.Persistence.Models;
 public class Users
 {
     public Guid Id { get; set; }
-    [StringLength(50)]
+    [MaxLength(50)]
     public string Email { get; set; } = null!;
-    [StringLength(30)]
+    [MaxLength(30)]
     public string Password { get; set; } = null!;
     public bool Active { get; set; } = true;
     public DateTime LastLogin { get; set; } = DateTime.MinValue;
