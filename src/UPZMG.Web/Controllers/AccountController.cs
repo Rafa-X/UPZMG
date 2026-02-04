@@ -19,9 +19,9 @@ public class AccountController : Controller
     public IActionResult Login() => View();
 
     [HttpPost]
-    public async Task<IActionResult> Login(string username, string password)
+    public async Task<IActionResult> Login(string email, string password)
     {
-        if (string.IsNullOrWhiteSpace(username) || string.IsNullOrWhiteSpace(password))
+        if (string.IsNullOrWhiteSpace(email) || string.IsNullOrWhiteSpace(password))
         {
             ModelState.AddModelError("", "Username and password are required.");
             return View();
@@ -30,7 +30,7 @@ public class AccountController : Controller
         // 1) Find active user
         var user = await _db.Users
             .AsNoTracking()
-            .FirstOrDefaultAsync(x => x.User == username && x.Active);
+            .FirstOrDefaultAsync(x => x.Email == email && x.Active);
 
         if (user is null)
         {
@@ -40,7 +40,7 @@ public class AccountController : Controller
 
         // 2) Verify password hash
         var hasher = new PasswordHasher<Users>();
-        var result = hasher.VerifyHashedPassword(user, user.PasswordHash, password);
+        var result = hasher.VerifyHashedPassword(user, user.Password, password);
 
         if (result == PasswordVerificationResult.Failed)
         {
@@ -60,7 +60,7 @@ public class AccountController : Controller
         var claims = new List<Claim>
         {
             new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
-            new Claim(ClaimTypes.Name, user.User)
+            new Claim(ClaimTypes.Email, user.Email)
         };
         claims.AddRange(roles.Select(r => new Claim(ClaimTypes.Role, r)));
 
