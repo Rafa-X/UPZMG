@@ -1,7 +1,7 @@
 namespace UPZMG.Persistence.Models;
 
 /// <summary>
-/// Security module.
+/// RRHH module.
 /// Represents contracts associated with employees and positions.
 /// </summary>
 

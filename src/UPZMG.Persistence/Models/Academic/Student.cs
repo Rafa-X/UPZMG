@@ -4,7 +4,7 @@ using UPZMG.Shared.Enums;
 namespace UPZMG.Persistence.Models;
 
 /// <summary>
-/// Security module.
+/// Academic module.
 /// Represents a student in the academic system.
 /// </summary>
 

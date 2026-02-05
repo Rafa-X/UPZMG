@@ -5,13 +5,14 @@ namespace UPZMG.Persistence.Models;
 
 /// <summary>
 /// RRHH module.
-/// Represents internal areas within the organization.
+/// Represents a teacher in the Academic Committee (AC).
 /// </summary>
-public class InternalAreas
+
+public class AcademicStaff
 {
     public Guid Id { get; set; }
-    [MaxLength(150)]
+    public Guid AC_Id { get; set; }
+    [MaxLength(200)]
     public string? Name { get; set; }
-    public Guid ParentAreaId { get; set; }
-    public InternalAreaType? Type { get; set; }
+    public StatusAC Status { get; set; }
 }

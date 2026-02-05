@@ -1,7 +1,7 @@
 namespace UPZMG.Persistence.Models;
 
 /// <summary>
-/// Security module.
+/// RRHH module.
 /// Represents an employee in the HR system.
 /// </summary>
 

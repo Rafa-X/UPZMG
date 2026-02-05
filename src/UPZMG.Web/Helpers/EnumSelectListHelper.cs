@@ -12,8 +12,8 @@ public static class EnumSelectListHelper
 {
     public static List<SelectListItem> HighestEducationLevelOptions()
     {
-        return Enum.GetValues<HighestEducationLevel>()
-            .Where(x => x != HighestEducationLevel.NoEspecificado)
+        return Enum.GetValues<EducationLevel>()
+            .Where(x => x != EducationLevel.NoEspecificado)
             .Select(x => new SelectListItem
             {
                 Value = ((int)x).ToString(),

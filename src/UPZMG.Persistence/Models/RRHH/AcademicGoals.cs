@@ -1,20 +1,21 @@
 using System.ComponentModel.DataAnnotations;
+using UPZMG.Shared.Enums;
 
 namespace UPZMG.Persistence.Models;
 
 /// <summary>
-/// Security module.
+/// RRHH module.
 /// Represents academic goals for employees.
 /// </summary>
 
 public class AcademicGoals
 {
     public Guid Id { get; set; }
-    public required Guid EmployeeId { get; set; }
+    public Guid EmployeeId { get; set; }
     [MaxLength(10)]
-    public string Type { get; set; } = null!;
+    public GoalType? Type { get; set; }
     [MaxLength(50)]
-    public string Level { get; set; } = null!;
+    public string? Level { get; set; }
     public DateOnly StartDate { get; set; }
     public DateOnly EndDate { get; set; }
 }

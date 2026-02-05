@@ -11,7 +11,7 @@ public class ReportsPermission
 {
     public Guid Id { get; set; }
     public Guid RoleId { get; set; }
-    [StringLength(60)]
+    [MaxLength(60)]
     public string ReportName { get; set; } = null!;
     public bool CanEdit { get; set; } = false;
     public bool CanSign { get; set; } = false;

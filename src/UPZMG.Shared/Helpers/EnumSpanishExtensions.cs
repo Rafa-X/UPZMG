@@ -8,13 +8,13 @@ namespace UPZMG.Shared.Helpers;
 
 public static class EnumSpanishExtensions
 {
-    public static string ToSpanish(this HighestEducationLevel level) => level switch
+    public static string ToSpanish(this EducationLevel level) => level switch
     {
-        HighestEducationLevel.Preparatoria => "Preparatoria",
-        HighestEducationLevel.TecnicoSuperior => "Técnico Superior",
-        HighestEducationLevel.Licenciatura_Ingenieria => "Licenciatura / Ingeniería",
-        HighestEducationLevel.Maestria => "Maestría",
-        HighestEducationLevel.Doctorado => "Doctorado",
+        EducationLevel.Preparatoria => "Preparatoria",
+        EducationLevel.TecnicoSuperior => "Técnico Superior",
+        EducationLevel.Licenciatura_Ingenieria => "Licenciatura / Ingeniería",
+        EducationLevel.Maestria => "Maestría",
+        EducationLevel.Doctorado => "Doctorado",
         _ => "No especificado"
     };
 
