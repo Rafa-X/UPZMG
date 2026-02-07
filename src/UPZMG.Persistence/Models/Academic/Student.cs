@@ -11,7 +11,7 @@ namespace UPZMG.Persistence.Models;
 public class Student
 {
     public Guid Id { get; set; }
-    [MaxLength(50)]
+    [MaxLength(20)]
     public required string EnrollmentNumber { get; set; }
     [MaxLength(18)]
     public required string CURP { get; set; }
@@ -29,12 +29,12 @@ public class Student
     public MaritalStatus MaritalStatus { get; set; }
     public int NumberOfChildren { get; set; }
     public bool Works { get; set; }
-    [MaxLength(50)]
-    public string BirthCountry { get; set; } = null!;
-    [MaxLength(50)]
-    public string BirthState { get; set; } = null!;
-    [MaxLength(50)]
-    public string HighSchoolCountry { get; set; } = null!;
-    [MaxLength(50)]
-    public string HighSchoolEntity { get; set; } = null!;
+    [MaxLength(100)]
+    public string? BirthCountry { get; set; }
+    [MaxLength(100)]
+    public string? BirthState { get; set; }
+    [MaxLength(100)]
+    public string? HighSchoolCountry { get; set; }
+    [MaxLength(100)]
+    public string? HighSchoolEntity { get; set; }
 }

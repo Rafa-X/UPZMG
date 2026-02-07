@@ -30,7 +30,7 @@ public class AuthController : ControllerBase
         if (string.IsNullOrWhiteSpace(expected) || req.SharedSecret != expected)
             return Unauthorized();
 
-        var user = await _db.Users.FirstOrDefaultAsync(x => x.Id == req.UserId && x.Active);
+        var user = await _db.SystemUser.FirstOrDefaultAsync(x => x.Id == req.UserId && x.Active);
         if (user is null) return Unauthorized();
 
         var roles = await (from ur in _db.UserRole

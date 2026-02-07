@@ -7,7 +7,7 @@ namespace UPZMG.Persistence.Models;
 /// Represents a teacher in the Academic Committee (AC).
 /// </summary>
 
-public class TeacherAC
+public class ACTeacher
 {
     public Guid Id { get; set; }
     public Guid EmployeeId { get; set; }

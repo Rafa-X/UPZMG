@@ -12,15 +12,43 @@ namespace UPZMG.Web.Controllers;
 public class AccountController : Controller
 {
     private readonly DBContext _db;
+    private readonly IWebHostEnvironment _env;
 
-    public AccountController(DBContext db) => _db = db;
-
-    [HttpGet]
-    public IActionResult Login() => View();
+    public AccountController(DBContext db, IWebHostEnvironment env)
+    {
+        _db = db;
+        _env = env;
+    }
 
     [HttpPost]
     public async Task<IActionResult> Login(string email, string password)
     {
+        // Development mode: it auto-logs you in as an Admin user with claims for Admin and Developer roles.
+        // Bypasses the login form and redirects to Home.
+        // For production (Release mode), the normal login form still appears.
+        var claims = new List<Claim>();
+        var identity = new ClaimsIdentity();
+
+        if (_env.IsDevelopment())
+        {
+            // Create a dev admin user with claims
+            claims.Add(new Claim(ClaimTypes.NameIdentifier, Guid.NewGuid().ToString()));
+            claims.Add(new Claim(ClaimTypes.Email, "dev@admin.local"));
+            claims.Add(new Claim(ClaimTypes.Role, "Admin"));
+            claims.Add(new Claim(ClaimTypes.Role, "Developer"));
+
+            identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
+            await HttpContext.SignInAsync(
+                CookieAuthenticationDefaults.AuthenticationScheme,
+                new ClaimsPrincipal(identity));
+
+            return RedirectToAction("Index", "Home");
+            // Later improvements: You can refine this to:
+            // Use a test user from the database instead of a hardcoded dev user
+            // Add a query parameter to bypass it if needed
+            // Log the auto-login for debugging
+        }
+
         if (string.IsNullOrWhiteSpace(email) || string.IsNullOrWhiteSpace(password))
         {
             ModelState.AddModelError("", "Username and password are required.");
@@ -28,7 +56,7 @@ public class AccountController : Controller
         }
 
         // 1) Find active user
-        var user = await _db.Users
+        var user = await _db.SystemUser
             .AsNoTracking()
             .FirstOrDefaultAsync(x => x.Email == email && x.Active);
 
@@ -39,7 +67,7 @@ public class AccountController : Controller
         }
 
         // 2) Verify password hash
-        var hasher = new PasswordHasher<Users>();
+        var hasher = new PasswordHasher<SystemUser>();
         var result = hasher.VerifyHashedPassword(user, user.Password, password);
 
         if (result == PasswordVerificationResult.Failed)
@@ -57,19 +85,16 @@ public class AccountController : Controller
         ).ToListAsync();
 
         // 4) Create cookie claims
-        var claims = new List<Claim>
-        {
-            new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
-            new Claim(ClaimTypes.Email, user.Email)
-        };
+        claims.Add(new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()));
+        claims.Add(new Claim(ClaimTypes.Email, user.Email));
         claims.AddRange(roles.Select(r => new Claim(ClaimTypes.Role, r)));
 
-        var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
+        identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
         await HttpContext.SignInAsync(
             CookieAuthenticationDefaults.AuthenticationScheme,
             new ClaimsPrincipal(identity));
 
-        return RedirectToAction("Index", "Dashboard");
+        return RedirectToAction("Index", "Home");
     }
 
     [HttpPost]

@@ -1,31 +1,5 @@
 namespace UPZMG.Shared.Enums;
 
-/// <summary>
-/// Represents the degree/title process status for a student or academic.
-/// </summary>
-public enum TitleStatus
-{
-    NoEspecificado,
-
-    NoIniciado,
-    EnTramite,
-    Aprobado,
-    Titulado,
-    Rechazado
-}
-
-//how to use: var texto = TitleStatus.EnTramite.ToString();
-
-
-/// <summary>
-/// Represents the gender type of a student or academic.
-/// </summary>
-public enum GenderType
-{
-    H,
-    M
-}
-
 
 /// <summary>
 /// Represents marital status options.
@@ -50,4 +24,35 @@ public enum EnglishLevel
     B2,
     C1,
     C2
+}
+
+/// <summary>
+/// Represents types of inscriptions for students.
+/// </summary>
+public enum InscriptionType
+{
+    NuevoIngreso,
+    Reingreso,
+    ReingresoRepetidor
+}
+
+/// <summary>
+/// Represents types of final status for students.
+/// </summary>
+public enum FinalStatus
+{
+    Activo,
+    BajaTemporal,
+    BajaDefinitiva,
+    Egresado
+}
+
+/// <summary>
+/// Represents types of course opportunities for students.
+/// </summary>
+public enum Opportunity
+{
+    Ordinario,
+    Extraordinario,
+    Titulo
 }

@@ -1,3 +1,5 @@
+using UPZMG.Shared.Enums;
+
 namespace UPZMG.Persistence.Models;
 
 /// <summary>
@@ -12,10 +14,10 @@ public class Employee
     public required string Name { get; set; }
     public required string Rfc { get; set; }
     public required string Curp { get; set; }
-    public string Gender { get; set; } = null!;
+    public GenderType Gender { get; set; }
     public DateOnly BirthDate { get; set; }
-    public string HighestEducationLevel { get; set; } = null!;
-    public string TitleStatus { get; set; } = null!;
+    public EducationLevel HighestEducationLevel { get; set; }
+    public TitleStatus TitleStatus { get; set; }
     public bool SpeaksIndigenousLanguage { get; set; }
     public bool WithDisability { get; set; }
     public float ExternalExpYears { get; set; }

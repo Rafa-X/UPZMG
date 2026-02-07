@@ -1,6 +1,16 @@
 namespace UPZMG.Shared.Enums;
 
 /// <summary>
+/// Represents the gender type of a student or academic.
+/// </summary>
+public enum GenderType
+{
+    H,
+    M
+}
+
+
+/// <summary>
 /// Represents the highest education level of an employee.
 /// </summary>
 public enum EducationLevel
@@ -10,6 +20,20 @@ public enum EducationLevel
     Licenciatura_Ingenieria,
     Maestria,
     Doctorado
+}
+
+/// <summary>
+/// Represents the degree/title process status for a student or academic.
+/// </summary>
+public enum TitleStatus
+{
+    NoEspecificado,
+
+    NoIniciado,
+    EnTramite,
+    Aprobado,
+    Titulado,
+    Rechazado
 }
 
 /// <summary>

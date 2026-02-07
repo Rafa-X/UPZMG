@@ -9,5 +9,5 @@ public class ResearchAreas
 {
     public Guid Id { get; set; }
     public Guid AC_Id { get; set; }
-    public required string AreaName { get; set; }
+    public string? AreaName { get; set; }
 }

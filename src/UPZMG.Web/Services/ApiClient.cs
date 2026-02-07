@@ -18,12 +18,19 @@ public class ApiClient
     // Generic helper: prepare client with Bearer token
     private async Task<HttpClient> CreateAuthorizedClientAsync(Guid userId)
     {
+        try
+        {
         var token = await _tokenService.GetTokenAsync(userId);
 
         var client = _httpClientFactory.CreateClient("UpzmgApi");
         client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
-
         return client;
+        }
+        catch (Exception ex)
+        {
+            Console.Error.WriteLine($"Error creating authorized API client: {ex.Message}");
+            throw;
+        }
     }
 
     // Example API call (you can create as many as you need)

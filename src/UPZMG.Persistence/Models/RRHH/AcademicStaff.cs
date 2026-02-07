@@ -5,7 +5,7 @@ namespace UPZMG.Persistence.Models;
 
 /// <summary>
 /// RRHH module.
-/// Represents a teacher in the Academic Committee (AC).
+/// Represents an academic staff and Academic Committee member in the RRHH system.
 /// </summary>
 
 public class AcademicStaff
