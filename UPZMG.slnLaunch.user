@@ -1,0 +1,15 @@
+[
+  {
+    "Name": "New Profile",
+    "Projects": [
+      {
+        "Path": "src\\UPZMG.Api\\UPZMG.Api.csproj",
+        "Action": "Start"
+      },
+      {
+        "Path": "src\\UPZMG.Web\\UPZMG.Web.csproj",
+        "Action": "Start"
+      }
+    ]
+  }
+]
