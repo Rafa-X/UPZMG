@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 17
-VisualStudioVersion = 17.0.31903.59
+# Visual Studio Version 18
+VisualStudioVersion = 18.3.11520.95 d18.3
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{827E0CD3-B72D-47B6-A68D-7590B98EB39B}"
 EndProject
@@ -24,6 +24,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UPZMG.Finance", "src\Modules\UPZMG.Finance\UPZMG.Finance.csproj", "{AE8C23A1-E838-4956-B7C6-790C7774450D}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UPZMG.Resources", "src\Modules\UPZMG.Resources\UPZMG.Resources.csproj", "{9B96261C-1110-490E-9B31-F566D7CCAA54}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UPZMG.Security", "src\Modules\UPZMG.Security\UPZMG.Security.csproj", "{A8958A7E-B224-A02E-D71D-3A3E021D02CE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -143,6 +145,18 @@ Global
 		{9B96261C-1110-490E-9B31-F566D7CCAA54}.Release|x64.Build.0 = Release|Any CPU
 		{9B96261C-1110-490E-9B31-F566D7CCAA54}.Release|x86.ActiveCfg = Release|Any CPU
 		{9B96261C-1110-490E-9B31-F566D7CCAA54}.Release|x86.Build.0 = Release|Any CPU
+		{A8958A7E-B224-A02E-D71D-3A3E021D02CE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A8958A7E-B224-A02E-D71D-3A3E021D02CE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A8958A7E-B224-A02E-D71D-3A3E021D02CE}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{A8958A7E-B224-A02E-D71D-3A3E021D02CE}.Debug|x64.Build.0 = Debug|Any CPU
+		{A8958A7E-B224-A02E-D71D-3A3E021D02CE}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{A8958A7E-B224-A02E-D71D-3A3E021D02CE}.Debug|x86.Build.0 = Debug|Any CPU
+		{A8958A7E-B224-A02E-D71D-3A3E021D02CE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A8958A7E-B224-A02E-D71D-3A3E021D02CE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A8958A7E-B224-A02E-D71D-3A3E021D02CE}.Release|x64.ActiveCfg = Release|Any CPU
+		{A8958A7E-B224-A02E-D71D-3A3E021D02CE}.Release|x64.Build.0 = Release|Any CPU
+		{A8958A7E-B224-A02E-D71D-3A3E021D02CE}.Release|x86.ActiveCfg = Release|Any CPU
+		{A8958A7E-B224-A02E-D71D-3A3E021D02CE}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -158,5 +172,6 @@ Global
 		{1CBEF9B4-5758-4D8B-A979-58DF2B1A5D51} = {EC447DCF-ABFA-6E24-52A5-D7FD48A5C558}
 		{AE8C23A1-E838-4956-B7C6-790C7774450D} = {EC447DCF-ABFA-6E24-52A5-D7FD48A5C558}
 		{9B96261C-1110-490E-9B31-F566D7CCAA54} = {EC447DCF-ABFA-6E24-52A5-D7FD48A5C558}
+		{A8958A7E-B224-A02E-D71D-3A3E021D02CE} = {EC447DCF-ABFA-6E24-52A5-D7FD48A5C558}
 	EndGlobalSection
 EndGlobal
