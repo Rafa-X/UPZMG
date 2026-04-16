@@ -5,32 +5,32 @@
       "name": "UPZMG.Web",
       "type": "coreclr",
       "request": "launch",
-      "program": "${workspaceFolder}/src/UPZMG.Web/bin/Debug/net9.0/UPZMG.Web.dll",
+      "program": "${workspaceFolder}/UPZMG.Web/bin/Debug/net9.0/UPZMG.Web.dll",
       "args": [],
-      "cwd": "${workspaceFolder}/src/UPZMG.Web",
+      "cwd": "${workspaceFolder}/UPZMG.Web",
       "env": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       },
       "console": "externalTerminal",
       "stopAtEntry": false,
       "sourceFileMap": {
-        "${workspaceFolder}/src": "${workspaceFolder}/src"
+        "${workspaceFolder}/": "${workspaceFolder}/"
       }
     },
     {
       "name": "UPZMG.Api",
       "type": "coreclr",
       "request": "launch",
-      "program": "${workspaceFolder}/src/UPZMG.API/bin/Debug/net9.0/UPZMG.API.dll",
+      "program": "${workspaceFolder}/UPZMG.API/bin/Debug/net9.0/UPZMG.API.dll",
       "args": [],
-      "cwd": "${workspaceFolder}/src/UPZMG.API",
+      "cwd": "${workspaceFolder}/UPZMG.API",
       "env": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       },
       "console": "externalTerminal",
       "stopAtEntry": false,
       "sourceFileMap": {
-        "${workspaceFolder}/src": "${workspaceFolder}/src"
+        "${workspaceFolder}/": "${workspaceFolder}/"
       }
     }
   ],
