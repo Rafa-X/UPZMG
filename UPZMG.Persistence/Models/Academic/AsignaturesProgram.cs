@@ -7,13 +7,13 @@ namespace UPZMG.Persistence.Models;
 /// Represents a course program in the academic system.
 /// </summary>
 
-public class CoursesProgram
+public class AsignaturesProgram
 {
     public Guid Id { get; set; }
     public Guid CareerId { get; set; } //fk
-    public Guid Code { get; set; }
+    public Guid AsignatureCode { get; set; }
     [MaxLength(200)]
-    public string Name { get; set; } = null!;
+    public string AsignatureName { get; set; } = null!;
     public int Credits { get; set; }
     public bool IsCoreSubject { get; set; }
 }

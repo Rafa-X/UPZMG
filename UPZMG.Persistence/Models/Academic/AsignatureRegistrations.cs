@@ -7,7 +7,7 @@ namespace UPZMG.Persistence.Models;
 /// Represents a student's registration in a class group for a specific period.
 /// </summary>
 
-public class Registrations
+public class AsignatureRegistrations
 {
     public Guid Id { get; set; }
     public Guid StudentId { get; set; } //fk

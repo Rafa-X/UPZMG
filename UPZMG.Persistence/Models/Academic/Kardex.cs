@@ -11,7 +11,7 @@ public class Kardex
 {
     public Guid Id { get; set; }
     public Guid StudentId { get; set; } //fk
-    public Guid CourseId { get; set; } //fk
+    public Guid AsignatureId { get; set; } //fk
     public Guid PeriodId { get; set; } //fk
     public double Grade { get; set; }
     public bool IsPassed { get; set; }

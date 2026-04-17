@@ -24,7 +24,7 @@ public class Student
     public DateOnly BirthDate { get; set; }
     public Gender Gender { get; set; }
     public bool SpeaksIndigenousLanguage { get; set; }
-    public Guid IndigenousLanguage { get; set; }
+    public Guid IndigenousLanguageId { get; set; }
     [MaxLength(10)]
     public string? PostalCode { get; set; }
     public EnglishLevel EnglishLevel { get; set; }

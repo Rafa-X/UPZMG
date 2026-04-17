@@ -14,20 +14,20 @@ public class AppDBContext : DbContext
     public DbSet<ReportsPermission> ReportsPermissions => Set<ReportsPermission>();
 
     // Academic
-    // public DbSet<AcademicLoad> AcademicLoads => Set<AcademicLoad>();
-    // public DbSet<Carrers> Carrers => Set<Carrers>();
-    // public DbSet<ClassGroups> ClassGroups => Set<ClassGroups>();
-    // public DbSet<CoursesProgram> CoursesPrograms => Set<CoursesProgram>();
-    // public DbSet<InstitutionalConfiguration> InstitutionalConfigurations => Set<InstitutionalConfiguration>();
-    // public DbSet<InstitutionalEvaluation> InstitutionalEvaluations => Set<InstitutionalEvaluation>();
-    // public DbSet<Kardex> Kardexes => Set<Kardex>();
-    // public DbSet<Periods> Periods => Set<Periods>();
-    // public DbSet<Registrations> Registrations => Set<Registrations>();
-    // public DbSet<ScolarshipAssigned> ScolarshipAssigneds => Set<ScolarshipAssigned>();
-    // public DbSet<Student> Students => Set<Student>();
-    // public DbSet<StudentDisabilities> StudentDisabilities => Set<StudentDisabilities>();
-    // public DbSet<TitulationProcess> TitulationProcesses => Set<TitulationProcess>();
-    // public DbSet<TutoringSessions> TutoringSessions => Set<TutoringSessions>();
+    public DbSet<AcademicLoad> AcademicLoads => Set<AcademicLoad>();
+    public DbSet<Carrers> Carrers => Set<Carrers>();
+    public DbSet<ClassGroups> ClassGroups => Set<ClassGroups>();
+    public DbSet<AsignaturesProgram> CoursesPrograms => Set<AsignaturesProgram>();
+    public DbSet<InstitutionalConfiguration> InstitutionalConfigurations => Set<InstitutionalConfiguration>();
+    public DbSet<InstitutionalEvaluation> InstitutionalEvaluations => Set<InstitutionalEvaluation>();
+    public DbSet<Kardex> Kardexes => Set<Kardex>();
+    public DbSet<Periods> Periods => Set<Periods>();
+    public DbSet<AsignatureRegistrations> Registrations => Set<AsignatureRegistrations>();
+    public DbSet<ScolarshipAssigned> ScolarshipAssigneds => Set<ScolarshipAssigned>();
+    public DbSet<Student> Students => Set<Student>();
+    public DbSet<StudentDisabilities> StudentDisabilities => Set<StudentDisabilities>();
+    public DbSet<TitulationProcess> TitulationProcesses => Set<TitulationProcess>();
+    public DbSet<TutoringSessions> TutoringSessions => Set<TutoringSessions>();
 
     // // Extension
     // public DbSet<ContinuousEducation> ContinuousEducations => Set<ContinuousEducation>();
@@ -39,6 +39,7 @@ public class AppDBContext : DbContext
     // public DbSet<Disabilities> Disabilities => Set<Disabilities>();
     // public DbSet<ScolarshipProgram> ScolarshipPrograms => Set<ScolarshipProgram>();
     // public DbSet<WithdrawReason> WithdrawReasons => Set<WithdrawReason>();
+    //public DbSet<IndigenousLanguages> IndigenousLanguages => Set<IndigenousLanguages>();
 
     // // Resources
     // public DbSet<AnnualTICInventory> AnnualTICInventories => Set<AnnualTICInventory>();
@@ -86,62 +87,146 @@ public class AppDBContext : DbContext
         });
 
         // Academic
-        // modelBuilder.Entity<AcademicLoad>(entity => {
-        //     entity.ToTable("academicLoads");
-        //     entity.HasKey(x => x.Id);
-        // });
-        // modelBuilder.Entity<Carrers>(entity => {
-        //     entity.ToTable("carrers");
-        //     entity.HasKey(x => x.Id);
-        // });
-        // modelBuilder.Entity<ClassGroups>(entity => {
-        //     entity.ToTable("classGroups");
-        //     entity.HasKey(x => x.Id);
-        // });
-        // modelBuilder.Entity<CoursesProgram>(entity => {
-        //     entity.ToTable("coursesPrograms");
-        //     entity.HasKey(x => x.Id);
-        // });
-        // modelBuilder.Entity<InstitutionalConfiguration>(entity => {
-        //     entity.ToTable("institutionalConfigurations");
-        //     entity.HasKey(x => x.Id);
-        // });
-        // modelBuilder.Entity<InstitutionalEvaluation>(entity => {
-        //     entity.ToTable("institutionalEvaluations");
-        //     entity.HasKey(x => x.Id);
-        // });
-        // modelBuilder.Entity<Kardex>(entity => {
-        //     entity.ToTable("kardexes");
-        //     entity.HasKey(x => x.Id);
-        // });
-        // modelBuilder.Entity<Periods>(entity => {
-        //     entity.ToTable("periods");
-        //     entity.HasKey(x => x.Id);
-        // });
-        // modelBuilder.Entity<Registrations>(entity => {
-        //     entity.ToTable("registrations");
-        //     entity.HasKey(x => x.Id);
-        // });
-        // modelBuilder.Entity<ScolarshipAssigned>(entity => {
-        //     entity.ToTable("scolarshipAssigneds");
-        //     entity.HasKey(x => x.Id);
-        // });
-        // modelBuilder.Entity<Student>(entity => {
-        //     entity.ToTable("students");
-        //     entity.HasKey(x => x.Id);
-        // });
-        // modelBuilder.Entity<StudentDisabilities>(entity => {
-        //     entity.ToTable("studentDisabilities");
-        //     entity.HasKey(x => x.Id);
-        // });
-        // modelBuilder.Entity<TitulationProcess>(entity => {
-        //     entity.ToTable("titulationProcesses");
-        //     entity.HasKey(x => x.Id);
-        // });
-        // modelBuilder.Entity<TutoringSessions>(entity => {
-        //     entity.ToTable("tutoringSessions");
-        //     entity.HasKey(x => x.Id);
-        // });
+        modelBuilder.Entity<AcademicLoad>(entity => {
+            entity.ToTable("academicLoads");
+            entity.HasKey(x => x.Id);
+            entity.HasOne<ClassGroups>()
+                .WithMany()
+                .HasForeignKey(x => x.GroupId);
+            entity.HasOne<AsignaturesProgram>()
+                .WithMany()
+                .HasForeignKey(x => x.CourseId);
+            entity.HasOne<Employee>()
+                .WithMany()
+                .HasForeignKey(x => x.TeacherId);
+            entity.HasOne<SchoolFacility>()
+                .WithMany()
+                .HasForeignKey(x => x.FacilityId);
+        });
+        modelBuilder.Entity<Carrers>(entity => {
+            entity.ToTable("carrers");
+            entity.HasKey(x => x.Id);
+        });
+        modelBuilder.Entity<ClassGroups>(entity => {
+            entity.ToTable("classGroups");
+            entity.HasKey(x => x.Id);
+            entity.HasOne<Periods>()
+                .WithMany()
+                .HasForeignKey(x => x.PeriodId);
+            entity.HasOne<Carrers>()
+                .WithMany()
+                .HasForeignKey(x => x.CareerId);
+            entity.HasOne<Employee>()
+                .WithMany()
+                .HasForeignKey(x => x.TeacherId);
+            entity.HasOne<SchoolFacility>()
+                .WithMany()
+                .HasForeignKey(x => x.FacilityId);
+        });
+        modelBuilder.Entity<AsignaturesProgram>(entity => {
+            entity.ToTable("asignaturesPrograms");
+            entity.HasKey(x => x.Id);
+            entity.HasOne<Carrers>()
+                .WithMany()
+                .HasForeignKey(x => x.CareerId);
+        });
+        modelBuilder.Entity<InstitutionalConfiguration>(entity => {
+            entity.ToTable("institutionalConfigurations");
+            entity.HasKey(x => x.Id);
+        });
+        modelBuilder.Entity<InstitutionalEvaluation>(entity => {
+            entity.ToTable("institutionalEvaluations");
+            entity.HasKey(x => x.Id);
+            entity.HasOne<Periods>()
+                .WithMany()
+                .HasForeignKey(x => x.PeriodId);
+        });
+        modelBuilder.Entity<Kardex>(entity => {
+            entity.ToTable("kardex");
+            entity.HasKey(x => x.Id);
+            entity.HasOne<Student>()
+                .WithMany()
+                .HasForeignKey(x => x.StudentId);
+            entity.HasOne<AsignaturesProgram>()
+                .WithMany()
+                .HasForeignKey(x => x.AsignatureId);
+            entity.HasOne<Periods>()
+                .WithMany()
+                .HasForeignKey(x => x.PeriodId);
+        });
+        modelBuilder.Entity<Periods>(entity => {
+            entity.ToTable("periods");
+            entity.HasKey(x => x.Id);
+        });
+        modelBuilder.Entity<AsignatureRegistrations>(entity =>{
+            entity.ToTable("registrations");
+            entity.HasKey(x => x.Id);
+            entity.HasOne<Student>()
+                .WithMany()
+                .HasForeignKey(x => x.StudentId);
+            entity.HasOne<ClassGroups>()
+                .WithMany()
+                .HasForeignKey(x => x.GroupId);
+            entity.HasOne<Periods>()
+                .WithMany()
+                .HasForeignKey(x => x.PeriodId);
+            entity.HasOne<WithdrawReason>()
+                .WithMany()
+                .HasForeignKey(x => x.WithdrawReasonId);
+        });
+        modelBuilder.Entity<ScolarshipAssigned>(entity => {
+            entity.ToTable("scolarshipAssigneds");
+            entity.HasKey(x => x.Id);
+            entity.HasOne<Student>()
+                .WithMany()
+                .HasForeignKey(x => x.StudentId);
+            entity.HasOne<Periods>()
+                .WithMany()
+                .HasForeignKey(x => x.PeriodId);
+             entity.HasOne<ScolarshipProgram>()
+                .WithMany()
+                .HasForeignKey(x => x.ScolarshipProgramId);
+        });
+        modelBuilder.Entity<Student>(entity => {
+            entity.ToTable("students");
+            entity.HasKey(x => x.Id);
+            entity.HasOne<IndigenousLanguages>()
+                .WithMany()
+                .HasForeignKey(x => x.IndigenousLanguageId);
+        });
+        modelBuilder.Entity<StudentDisabilities>(entity => {
+            entity.ToTable("studentDisabilities");
+            entity.HasKey(x => x.Id);
+            entity.HasOne<Student>()
+                .WithMany()
+                .HasForeignKey(x => x.StudentId);
+            entity.HasOne<Disabilities>()
+                .WithMany()
+                .HasForeignKey(x => x.DisabilityId);
+        });
+        modelBuilder.Entity<TitulationProcess>(entity => {
+            entity.ToTable("titulationProcesses");
+            entity.HasKey(x => x.Id);
+            entity.HasOne<Student>()
+                .WithMany()
+                .HasForeignKey(x => x.StudentId);
+            entity.HasOne<Carrers>()
+                .WithMany()
+                .HasForeignKey(x => x.CareerId);
+            entity.HasOne<Employee>()
+                .WithMany()
+                .HasForeignKey(x => x.TitulationAssessorId);
+        });
+        modelBuilder.Entity<TutoringSessions>(entity => {
+            entity.ToTable("tutoringSessions");
+            entity.HasKey(x => x.Id);
+            entity.HasOne<Student>()
+                .WithMany()
+                .HasForeignKey(x => x.StudentId);
+             entity.HasOne<ClassGroups>()
+                .WithMany()
+                .HasForeignKey(x => x.GroupId);
+        });
 
         // // Extension
         // modelBuilder.Entity<ContinuousEducation>(entity => {
