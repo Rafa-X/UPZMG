@@ -1,3 +1,4 @@
+
 {
   "version": "2.0.0",
   "tasks": [
@@ -5,10 +6,7 @@
       "label": "build",
       "command": "dotnet",
       "type": "process",
-      "args": [
-        "build",
-        "${workspaceFolder}/UPZMG.sln"
-      ],
+      "args": ["build", "-c", "Debug", "${workspaceFolder}/UPZMG.sln"],
       "problemMatcher": "$msCompile"
     }
   ]

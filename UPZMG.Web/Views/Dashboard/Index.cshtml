@@ -1,0 +1,16 @@
+@{
+  ViewData["Title"] = "Dashboard";
+}
+
+<h2>Dashboard</h2>
+
+<p>If you can see JSON below, then: cookie ✅ → token exchange ✅ → API auth ✅</p>
+
+<pre style="background:#111;color:#0f0;padding:12px;border-radius:8px;overflow:auto;">
+@ViewBag.ApiJson
+</pre>
+
+<form method="post" action="/Account/Logout">
+  @Html.AntiForgeryToken()
+  <button type="submit">Logout</button>
+</form>

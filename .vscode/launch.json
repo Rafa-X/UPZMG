@@ -5,41 +5,33 @@
       "name": "UPZMG.Web",
       "type": "coreclr",
       "request": "launch",
-      "preLaunchTask": "build",
-      "program": "dotnet",
-      "args": [
-        "run",
-        "--project",
-        "${workspaceFolder}/src/UPZMG.Web/UPZMG.Web.csproj",
-        "--urls",
-        "https://localhost:5002"
-      ],
-      "cwd": "${workspaceFolder}",
+      "program": "${workspaceFolder}/UPZMG.Web/bin/Debug/net9.0/UPZMG.Web.dll",
+      "args": [],
+      "cwd": "${workspaceFolder}/UPZMG.Web",
       "env": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       },
-      "console": "integratedTerminal",
-      "stopAtEntry": false
+      "console": "externalTerminal",
+      "stopAtEntry": false,
+      "sourceFileMap": {
+        "${workspaceFolder}/": "${workspaceFolder}/"
+      }
     },
     {
       "name": "UPZMG.Api",
       "type": "coreclr",
       "request": "launch",
-      "preLaunchTask": "build",
-      "program": "dotnet",
-      "args": [
-        "run",
-        "--project",
-        "${workspaceFolder}/src/UPZMG.Api/UPZMG.Api.csproj",
-        "--urls",
-        "https://localhost:5003"
-      ],
-      "cwd": "${workspaceFolder}",
+      "program": "${workspaceFolder}/UPZMG.API/bin/Debug/net9.0/UPZMG.API.dll",
+      "args": [],
+      "cwd": "${workspaceFolder}/UPZMG.API",
       "env": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       },
-      "console": "integratedTerminal",
-      "stopAtEntry": false
+      "console": "externalTerminal",
+      "stopAtEntry": false,
+      "sourceFileMap": {
+        "${workspaceFolder}/": "${workspaceFolder}/"
+      }
     }
   ],
   "compounds": [

@@ -4,7 +4,7 @@
 # =========================================================
 
 # Default rule: all files and folders
-* @Rafa-X @KevinHC479 @user3
+* @Rafa-X @KevinHC479 @Maquinaria01
 
 # (Optional) Explicitly include the main solution structure
 /src/ @Rafa-X @KevinHC479 @Maquinaria01

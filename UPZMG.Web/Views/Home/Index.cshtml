@@ -1,0 +1,39 @@
+﻿@model UPZMG.Web.Models.HomeModel
+
+@{
+    ViewData["Title"] = "Example Page";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Example</h1>
+    <p>This page shows data from the API and demonstrates filling an `ExampleModel`.
+    </p>
+
+    <form id="exampleForm" method="get" asp-controller="Example" asp-action="Index">
+        <input type="hidden" id="RequestId" name="RequestId" value="@Model.RequestId" />
+        <button id="fillButton" type="button" class="btn btn-primary">Fill ExampleModel and Refresh</button>
+    </form>
+
+    <div class="mt-3">
+        <strong>RequestId:</strong> <span id="currentRequest">@Model.RequestId</span>
+    </div>
+
+    <h3 class="mt-4">API Data</h3>
+    <ul>
+        @foreach (var item in Model.Data)
+        {
+            <li>@item</li>
+        }
+    </ul>
+</div>
+
+<script>
+    // Fill the hidden RequestId and submit the form. Here we generate a GUID.
+    document.getElementById('fillButton').addEventListener('click', function () {
+        const guid = ([1e7]+-1e3+-4e3+-8e3+-1e11).replace(/[018]/g, c =>
+            (c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> c / 4).toString(16)
+        );
+        document.getElementById('RequestId').value = guid;
+        document.getElementById('exampleForm').submit();
+    });
+</script>
