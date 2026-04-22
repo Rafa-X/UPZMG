@@ -1,4 +1,5 @@
 using System.Security.Claims;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Identity;
@@ -6,23 +7,41 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using UPZMG.Persistence;
 using UPZMG.Persistence.Models;
+using UPZMG.Web.Services;
 
 namespace UPZMG.Web.Controllers;
 
 public class AccountController : Controller
 {
     private readonly AppDBContext _db;
-    private readonly IWebHostEnvironment _env;
+    private readonly ISecurityEventLogger _securityLogger;
 
-    public AccountController(AppDBContext db, IWebHostEnvironment env)
+    public AccountController(AppDBContext db, ISecurityEventLogger securityLogger)
     {
         _db = db;
-        _env = env;
+        _securityLogger = securityLogger;
     }
 
+    [AllowAnonymous]
+    [HttpGet]
+    public IActionResult Login()
+    {   
+        //show login page if not authenticated, otherwise redirect to home
+        if (User.Identity?.IsAuthenticated == true)
+            return RedirectToAction("Index", "Home");
+
+        return View();
+    }
+
+    [AllowAnonymous]
     [HttpPost]
+    [ValidateAntiForgeryToken]
     public async Task<IActionResult> Login(string email, string password)
-    {
+    {   
+        //handle login form submission, validate credentials, and sign in with cookie auth
+        if (User.Identity?.IsAuthenticated == true)
+            return RedirectToAction("Index", "Home");
+
         var claims = new List<Claim>();
         var identity = new ClaimsIdentity();
         var props = new AuthenticationProperties
@@ -31,32 +50,12 @@ public class AccountController : Controller
             AllowRefresh = false
         };
 
-        // Development mode: it auto-logs you in as an Admin user with claims for Admin and Developer roles.
-        // Bypasses the login form and redirects to Home.
-        // For production (Release mode), the normal login form still appears.
-        if (_env.IsDevelopment())
-        {
-            // Create a dev admin user with claims
-            claims.Add(new Claim(ClaimTypes.NameIdentifier, Guid.NewGuid().ToString()));
-            claims.Add(new Claim(ClaimTypes.Email, "dev@admin.local"));
-            claims.Add(new Claim(ClaimTypes.Role, "Admin"));
-            claims.Add(new Claim(ClaimTypes.Role, "Developer"));
-
-            identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
-            await HttpContext.SignInAsync(
-                CookieAuthenticationDefaults.AuthenticationScheme,
-                new ClaimsPrincipal(identity),
-                props);
-            return RedirectToAction("Index", "Home");
-            // Later improvements: You can refine this to:
-            // Use a test user from the database instead of a hardcoded dev user
-            // Add a query parameter to bypass it if needed
-            // Log the auto-login for debugging
-        }
+        email = email?.Trim() ?? string.Empty;
 
         if (string.IsNullOrWhiteSpace(email) || string.IsNullOrWhiteSpace(password))
         {
-            ModelState.AddModelError("", "Username and password are required.");
+            _securityLogger.LogLoginRejected(email, "Missing credentials");
+            ModelState.AddModelError("", "Email and password are required.");
             return View();
         }
 
@@ -67,6 +66,7 @@ public class AccountController : Controller
 
         if (user is null)
         {
+            _securityLogger.LogLoginRejected(email, "User not found or inactive");
             ModelState.AddModelError("", "Invalid credentials.");
             return View();
         }
@@ -77,6 +77,7 @@ public class AccountController : Controller
 
         if (result == PasswordVerificationResult.Failed)
         {
+            _securityLogger.LogLoginRejected(email, "Invalid password");
             ModelState.AddModelError("", "Invalid credentials.");
             return View();
         }
@@ -99,13 +100,22 @@ public class AccountController : Controller
                 CookieAuthenticationDefaults.AuthenticationScheme,
                 new ClaimsPrincipal(identity),
                 props);
+        _securityLogger.LogLoginSucceeded(user.Id, user.Email, roles);
         return RedirectToAction("Index", "Home");
     }
 
+    [Authorize]
     [HttpPost]
+    [ValidateAntiForgeryToken]
     public async Task<IActionResult> Logout()
     {
+        //handle logout, sign out of cookie auth, and log the event
+        var userIdValue = User.FindFirstValue(ClaimTypes.NameIdentifier);
+        Guid? userId = Guid.TryParse(userIdValue, out var parsedUserId) ? parsedUserId : null;
+        var email = User.FindFirstValue(ClaimTypes.Email);
+
         await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+        _securityLogger.LogLogout(userId, email);
         return RedirectToAction("Login");
     }
 

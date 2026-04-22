@@ -11,5 +11,6 @@
 </pre>
 
 <form method="post" action="/Account/Logout">
+  @Html.AntiForgeryToken()
   <button type="submit">Logout</button>
 </form>

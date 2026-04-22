@@ -4,6 +4,7 @@ using System.Text;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using UPZMG.Api.Services;
 using UPZMG.Persistence;
 
 namespace UPZMG.Api.Controllers;
@@ -14,11 +15,13 @@ public class AuthController : ControllerBase
 {
     private readonly AppDBContext _db;
     private readonly IConfiguration _cfg;
+    private readonly ISecurityEventLogger _securityLogger;
 
-    public AuthController(AppDBContext db, IConfiguration cfg)
+    public AuthController(AppDBContext db, IConfiguration cfg, ISecurityEventLogger securityLogger)
     {
         _db = db;
         _cfg = cfg;
+        _securityLogger = securityLogger;
     }
 
     public record TokenExchangeRequest(Guid UserId, string SharedSecret);
@@ -28,10 +31,17 @@ public class AuthController : ControllerBase
     {
         var expected = _cfg["InternalAuth:WebSharedSecret"];
         if (string.IsNullOrWhiteSpace(expected) || req.SharedSecret != expected)
+        {
+            _securityLogger.LogTokenExchangeRejected(req.UserId, "Shared secret mismatch or missing");
             return Unauthorized();
+        }
 
         var user = await _db.SystemUsers.FirstOrDefaultAsync(x => x.Id == req.UserId && x.IsActive);
-        if (user is null) return Unauthorized();
+        if (user is null)
+        {
+            _securityLogger.LogTokenExchangeRejected(req.UserId, "User not found or inactive");
+            return Unauthorized();
+        }
 
         var roles = await (from ur in _db.UserRoles
                            join r in _db.Roles on ur.RoleId equals r.Id
@@ -49,13 +59,16 @@ public class AuthController : ControllerBase
         claims.AddRange(roles.Select(r => new Claim(ClaimTypes.Role, r)));
 
         var minutes = int.Parse(jwt["AccessTokenMinutes"] ?? "15");
+        var expiresUtc = DateTime.UtcNow.AddMinutes(minutes);
         var token = new JwtSecurityToken(
             issuer: jwt["Issuer"],
             audience: jwt["Audience"],
             claims: claims,
-            expires: DateTime.UtcNow.AddMinutes(minutes),
+            expires: expiresUtc,
             signingCredentials: creds
         );
+
+        _securityLogger.LogTokenIssued(user.Id, roles, expiresUtc);
 
         return Ok(new { access_token = new JwtSecurityTokenHandler().WriteToken(token) });
     }
