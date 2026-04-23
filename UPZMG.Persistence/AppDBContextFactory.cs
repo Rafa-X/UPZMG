@@ -26,7 +26,7 @@ namespace UPZMG.Persistence
                     $"Connection string 'Default' was not found. Base path used: {basePath}");
 
             var optionsBuilder = new DbContextOptionsBuilder<AppDBContext>();
-            optionsBuilder.UseNpgsql(connectionString);
+            optionsBuilder.UseSqlServer(connectionString);
 
             return new AppDBContext(optionsBuilder.Options);
         }

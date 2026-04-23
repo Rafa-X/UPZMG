@@ -1,31 +1,21 @@
 services:
   db:
-    image: postgres:16
+    image: mcr.microsoft.com/mssql/server:2022-latest
     container_name: upzmg_db
     restart: unless-stopped
     environment:
-      POSTGRES_DB: ${POSTGRES_DB}
-      POSTGRES_USER: ${POSTGRES_USER}
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      ACCEPT_EULA: "Y"
+      MSSQL_DEV_PASSWORD: ${MSSQL_DEV_PASSWORD}
+      MSSQL_PID: ${MSSQL_PID}
+      MSSQL_DEV_PASSWORD: ${MSSQL_DEV_PASSWORD}
     ports:
-      - "5432:5432"
+      - "1433:1433"
     volumes:
-      - upzmg_db:/var/lib/postgresql/data
-
-  pgadmin:
-    image: dpage/pgadmin4:8
-    container_name: upzmg_pgadmin
-    restart: unless-stopped
-    environment:
-      PGADMIN_DEFAULT_EMAIL: admin@local.com
-      PGADMIN_DEFAULT_PASSWORD: admin
-    ports:
-      - "5050:80"
-    depends_on:
-      - db
-    volumes:
-      - upzmg_pgadmin:/var/lib/pgadmin
+      - upzmg_db:/var/opt/mssql
+      - ./init-db.sql:/var/opt/mssql/init-db.sql
+      - ./start-mssql.sh:/var/opt/mssql/start-mssql.sh
+    entrypoint: /var/opt/mssql/start-mssql.sh
+    command: /opt/mssql/bin/sqlservr
 
 volumes:
   upzmg_db:
-  upzmg_pgadmin:

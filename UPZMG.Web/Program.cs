@@ -16,7 +16,7 @@ try
     builder.Services.AddControllersWithViews();
 
     builder.Services.AddDbContext<AppDBContext>(opt =>
-        opt.UseNpgsql(builder.Configuration.GetConnectionString("Default")));
+        opt.UseSqlServer(builder.Configuration.GetConnectionString("Default")));
 
     // Cookie Auth
     builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
@@ -26,7 +26,7 @@ try
             options.AccessDeniedPath = "/Account/AccessDenied";
             options.Cookie.Name = "UPZMG.Auth";
             options.SlidingExpiration = true;
-            options.ExpireTimeSpan = TimeSpan.FromHours(8);
+            options.ExpireTimeSpan = TimeSpan.FromHours(3);
             options.Cookie.HttpOnly = true;
             options.Cookie.SecurePolicy = CookieSecurePolicy.Always;
             options.Cookie.SameSite = SameSiteMode.Lax;
@@ -39,11 +39,19 @@ try
     builder.Services.AddAuthorization();
 
     // HttpClient to call API (server-to-server)
-    builder.Services.AddHttpClient("UpzmgApi", client =>
+    var apiClientBuilder = builder.Services.AddHttpClient("UpzmgApi", client =>
     {
-        // dev: your API will run on another port; update once you know it
         client.BaseAddress = new Uri("https://localhost:5003/");
     });
+
+    // Local development uses an untrusted dev cert by default.
+    if (builder.Environment.IsDevelopment())
+    {
+        apiClientBuilder.ConfigurePrimaryHttpMessageHandler(() => new HttpClientHandler
+        {
+            ServerCertificateCustomValidationCallback = HttpClientHandler.DangerousAcceptAnyServerCertificateValidator
+        });
+    }
 
     builder.Services.AddMemoryCache(); // for caching JWT per session/user
 

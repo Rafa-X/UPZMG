@@ -19,8 +19,8 @@ Administration system for UPZMG - Modular project
 - **Modular Architecture:** Each domain module is isolated in its own module for maintainability and scalability.
 - **ASP.NET Core MVC:** Modern, robust web framework for both UI and API layers.
 - **Secure Authentication:** Cookie-based authentication for the web, JWT Bearer tokens for API .access.
-- **EF Core + PostgreSQL:** Strong ORM with code-first migrations, leveraging PostgreSQL for reliability and performance.
-- **Dockerized Database:** Easy local development and deployment using Docker Compose for PostgreSQL.
+- **EF Core + SQL Server:** Strong ORM with code-first migrations, leveraging SQL Server for reliability and performance.
+- **Dockerized Database:** Easy local development and deployment using Docker Compose for SQL Server.
 - **Separation of Concerns:** Clear boundaries between UI, API, persistence, and shared logic.
 - **Role-Based Access:** Fine-grained authorization for different user roles.
 - **Extensible:** Easily add new modules/features without impacting existing functionality.
@@ -60,8 +60,8 @@ Rotation steps:
 5. Invalidate existing API tokens if immediate cutover is required.
 
 ## 2. Database
-**PostgreSQL + Docker**
+**SQL Server + Docker**
 
-- Engine: **Postgres 16**
+- Engine: **SQL Server 2022**
 - Schema changes are managed with **EF Core Migrations**
 

@@ -17,7 +17,7 @@ try
     builder.Services.AddSwaggerGen();
 
     builder.Services.AddDbContext<AppDBContext>(opt =>
-        opt.UseNpgsql(builder.Configuration.GetConnectionString("Default")));
+        opt.UseSqlServer(builder.Configuration.GetConnectionString("Default")));
 
     var jwt = builder.Configuration.GetSection("Jwt");
     var jwtSigningKey = GetRequiredSecret(builder.Configuration, "Jwt:Key", 32, startupLogger);

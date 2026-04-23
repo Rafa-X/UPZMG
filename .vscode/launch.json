@@ -5,7 +5,7 @@
       "name": "UPZMG.Web",
       "type": "coreclr",
       "request": "launch",
-      "program": "${workspaceFolder}/UPZMG.Web/bin/Debug/net9.0/UPZMG.Web.dll",
+      "program": "${workspaceFolder}/UPZMG.Web/bin/Debug/net10.0/UPZMG.Web.dll",
       "args": [],
       "cwd": "${workspaceFolder}/UPZMG.Web",
       "env": {
@@ -18,10 +18,10 @@
       }
     },
     {
-      "name": "UPZMG.Api",
+      "name": "UPZMG.API",
       "type": "coreclr",
       "request": "launch",
-      "program": "${workspaceFolder}/UPZMG.API/bin/Debug/net9.0/UPZMG.API.dll",
+      "program": "${workspaceFolder}/UPZMG.API/bin/Debug/net10.0/UPZMG.API.dll",
       "args": [],
       "cwd": "${workspaceFolder}/UPZMG.API",
       "env": {
@@ -37,7 +37,7 @@
   "compounds": [
     {
       "name": "UPZMG",
-      "configurations": ["UPZMG.Web", "UPZMG.Api"]
+      "configurations": ["UPZMG.Web", "UPZMG.API"]
     }
   ]
 }
