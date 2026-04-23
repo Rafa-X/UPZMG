@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+using System;
 using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
@@ -7,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace UPZMG.Persistence.Migrations
 {
     /// <inheritdoc />
-    public partial class AcademicModuleInitial : Migration
+    public partial class InitialDBMigration : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -16,15 +15,15 @@ namespace UPZMG.Persistence.Migrations
                 name: "carrers",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "uuid", nullable: false),
-                    Name = table.Column<string>(type: "character varying(200)", maxLength: 200, nullable: true),
-                    SEPCode = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: true),
-                    EducationalLevel = table.Column<int>(type: "integer", nullable: false),
-                    Modality = table.Column<int>(type: "integer", nullable: false),
-                    PeriodType = table.Column<int>(type: "integer", nullable: false),
-                    DurationInPeriods = table.Column<int>(type: "integer", nullable: false),
-                    DurationInYears = table.Column<int>(type: "integer", nullable: false),
-                    TotalCredits = table.Column<int>(type: "integer", nullable: false),
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
+                    SEPCode = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
+                    EducationalLevel = table.Column<int>(type: "int", nullable: false),
+                    Modality = table.Column<int>(type: "int", nullable: false),
+                    PeriodType = table.Column<int>(type: "int", nullable: false),
+                    DurationInPeriods = table.Column<int>(type: "int", nullable: false),
+                    DurationInYears = table.Column<int>(type: "int", nullable: false),
+                    TotalCredits = table.Column<int>(type: "int", nullable: false),
                     PlanCreadtedDate = table.Column<DateOnly>(type: "date", nullable: false),
                     LastUpdatedDate = table.Column<DateOnly>(type: "date", nullable: false)
                 },
@@ -37,8 +36,8 @@ namespace UPZMG.Persistence.Migrations
                 name: "Disabilities",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "uuid", nullable: false),
-                    Name = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: true)
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true)
                 },
                 constraints: table =>
                 {
@@ -49,18 +48,18 @@ namespace UPZMG.Persistence.Migrations
                 name: "Employee",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "uuid", nullable: false),
-                    EmployeeNumber = table.Column<Guid>(type: "uuid", nullable: false),
-                    FullName = table.Column<string>(type: "character varying(200)", maxLength: 200, nullable: false),
-                    Rfc = table.Column<string>(type: "character varying(13)", maxLength: 13, nullable: false),
-                    Curp = table.Column<string>(type: "character varying(18)", maxLength: 18, nullable: false),
-                    Gender = table.Column<int>(type: "integer", nullable: false),
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    EmployeeNumber = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    FullName = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: false),
+                    Rfc = table.Column<string>(type: "nvarchar(13)", maxLength: 13, nullable: false),
+                    Curp = table.Column<string>(type: "nvarchar(18)", maxLength: 18, nullable: false),
+                    Gender = table.Column<int>(type: "int", nullable: false),
                     BirthDate = table.Column<DateOnly>(type: "date", nullable: false),
-                    HighestEducationLevel = table.Column<int>(type: "integer", nullable: false),
-                    TitleStatus = table.Column<int>(type: "integer", nullable: false),
-                    SpeaksIndigenousLanguage = table.Column<bool>(type: "boolean", nullable: false),
-                    HasDisability = table.Column<bool>(type: "boolean", nullable: false),
-                    ExternalXPYears = table.Column<int>(type: "integer", nullable: false),
+                    HighestEducationLevel = table.Column<int>(type: "int", nullable: false),
+                    TitleStatus = table.Column<int>(type: "int", nullable: false),
+                    SpeaksIndigenousLanguage = table.Column<bool>(type: "bit", nullable: false),
+                    HasDisability = table.Column<bool>(type: "bit", nullable: false),
+                    ExternalXPYears = table.Column<int>(type: "int", nullable: false),
                     FirstHiredDate = table.Column<DateOnly>(type: "date", nullable: false)
                 },
                 constraints: table =>
@@ -72,8 +71,8 @@ namespace UPZMG.Persistence.Migrations
                 name: "IndigenousLanguages",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "uuid", nullable: false),
-                    LanguageName = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: true)
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    LanguageName = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true)
                 },
                 constraints: table =>
                 {
@@ -84,15 +83,15 @@ namespace UPZMG.Persistence.Migrations
                 name: "institutionalConfigurations",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "uuid", nullable: false),
-                    PeriodId = table.Column<Guid>(type: "uuid", nullable: false),
-                    IsActive = table.Column<bool>(type: "boolean", nullable: false),
-                    IsEvaluated = table.Column<bool>(type: "boolean", nullable: false),
-                    PublicResults = table.Column<bool>(type: "boolean", nullable: false),
-                    URLResults = table.Column<string>(type: "character varying(500)", maxLength: 500, nullable: true),
-                    SEAES_Framework = table.Column<bool>(type: "boolean", nullable: false),
-                    SEAES_Feedback = table.Column<bool>(type: "boolean", nullable: false),
-                    Observations = table.Column<string>(type: "text", nullable: true)
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    PeriodId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    IsActive = table.Column<bool>(type: "bit", nullable: false),
+                    IsEvaluated = table.Column<bool>(type: "bit", nullable: false),
+                    PublicResults = table.Column<bool>(type: "bit", nullable: false),
+                    URLResults = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: true),
+                    SEAES_Framework = table.Column<bool>(type: "bit", nullable: false),
+                    SEAES_Feedback = table.Column<bool>(type: "bit", nullable: false),
+                    Observations = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -103,12 +102,12 @@ namespace UPZMG.Persistence.Migrations
                 name: "periods",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "uuid", nullable: false),
-                    IdCode = table.Column<string>(type: "character varying(20)", maxLength: 20, nullable: false),
-                    SEP_Period = table.Column<string>(type: "character varying(20)", maxLength: 20, nullable: false),
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    IdCode = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
+                    SEP_Period = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
                     StartDate = table.Column<DateOnly>(type: "date", nullable: false),
                     EndDate = table.Column<DateOnly>(type: "date", nullable: false),
-                    IsActive = table.Column<bool>(type: "boolean", nullable: false)
+                    IsActive = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -116,18 +115,45 @@ namespace UPZMG.Persistence.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "reportsPermissions",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    RoleId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    ReportName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    CanEdit = table.Column<bool>(type: "bit", nullable: false),
+                    CanSign = table.Column<bool>(type: "bit", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_reportsPermissions", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "roles",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(40)", maxLength: 40, nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_roles", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "SchoolFacility",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "uuid", nullable: false),
-                    Name = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: false),
-                    Type = table.Column<int>(type: "integer", nullable: false),
-                    Capacity = table.Column<int>(type: "integer", nullable: false),
-                    InUse = table.Column<bool>(type: "boolean", nullable: false),
-                    HasInternet = table.Column<bool>(type: "boolean", nullable: false),
-                    HasComputers = table.Column<bool>(type: "boolean", nullable: false),
-                    SupportDisabilities = table.Column<bool>(type: "boolean", nullable: false),
-                    Problems = table.Column<List<string>>(type: "text[]", nullable: false)
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    Type = table.Column<int>(type: "int", nullable: false),
+                    Capacity = table.Column<int>(type: "int", nullable: false),
+                    InUse = table.Column<bool>(type: "bit", nullable: false),
+                    HasInternet = table.Column<bool>(type: "bit", nullable: false),
+                    HasComputers = table.Column<bool>(type: "bit", nullable: false),
+                    SupportDisabilities = table.Column<bool>(type: "bit", nullable: false),
+                    Problems = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -138,9 +164,9 @@ namespace UPZMG.Persistence.Migrations
                 name: "ScolarshipProgram",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "uuid", nullable: false),
-                    OfficialName = table.Column<string>(type: "character varying(150)", maxLength: 150, nullable: false),
-                    SourceType = table.Column<int>(type: "integer", nullable: false)
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    OfficialName = table.Column<string>(type: "nvarchar(150)", maxLength: 150, nullable: false),
+                    SourceType = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -148,11 +174,27 @@ namespace UPZMG.Persistence.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "systemUser",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    EmployeeId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Email = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    Password = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    IsActive = table.Column<bool>(type: "bit", nullable: false),
+                    LastLogin = table.Column<DateTime>(type: "datetime2", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_systemUser", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "WithdrawReason",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "uuid", nullable: false),
-                    Description = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false)
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Description = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -163,12 +205,12 @@ namespace UPZMG.Persistence.Migrations
                 name: "asignaturesPrograms",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "uuid", nullable: false),
-                    CareerId = table.Column<Guid>(type: "uuid", nullable: false),
-                    AsignatureCode = table.Column<Guid>(type: "uuid", nullable: false),
-                    AsignatureName = table.Column<string>(type: "character varying(200)", maxLength: 200, nullable: false),
-                    Credits = table.Column<int>(type: "integer", nullable: false),
-                    IsCoreSubject = table.Column<bool>(type: "boolean", nullable: false)
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    CareerId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    AsignatureCode = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    AsignatureName = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: false),
+                    Credits = table.Column<int>(type: "int", nullable: false),
+                    IsCoreSubject = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -178,32 +220,32 @@ namespace UPZMG.Persistence.Migrations
                         column: x => x.CareerId,
                         principalTable: "carrers",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.NoAction);
                 });
 
             migrationBuilder.CreateTable(
                 name: "students",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "uuid", nullable: false),
-                    EnrollmentNumber = table.Column<string>(type: "character varying(20)", maxLength: 20, nullable: false),
-                    CURP = table.Column<string>(type: "character varying(18)", maxLength: 18, nullable: false),
-                    Name = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false),
-                    MiddleName = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false),
-                    LastName = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false),
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    EnrollmentNumber = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
+                    CURP = table.Column<string>(type: "nvarchar(18)", maxLength: 18, nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    MiddleName = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    LastName = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     BirthDate = table.Column<DateOnly>(type: "date", nullable: false),
-                    Gender = table.Column<int>(type: "integer", nullable: false),
-                    SpeaksIndigenousLanguage = table.Column<bool>(type: "boolean", nullable: false),
-                    IndigenousLanguageId = table.Column<Guid>(type: "uuid", nullable: false),
-                    PostalCode = table.Column<string>(type: "character varying(10)", maxLength: 10, nullable: true),
-                    EnglishLevel = table.Column<int>(type: "integer", nullable: false),
-                    MaritalStatus = table.Column<int>(type: "integer", nullable: false),
-                    NumberOfChildren = table.Column<int>(type: "integer", nullable: false),
-                    Works = table.Column<bool>(type: "boolean", nullable: false),
-                    BirthCountry = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: true),
-                    BirthState = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: true),
-                    HighSchoolCountry = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: true),
-                    HighSchoolEntity = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: true)
+                    Gender = table.Column<int>(type: "int", nullable: false),
+                    SpeaksIndigenousLanguage = table.Column<bool>(type: "bit", nullable: false),
+                    IndigenousLanguageId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    PostalCode = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: true),
+                    EnglishLevel = table.Column<int>(type: "int", nullable: false),
+                    MaritalStatus = table.Column<int>(type: "int", nullable: false),
+                    NumberOfChildren = table.Column<int>(type: "int", nullable: false),
+                    Works = table.Column<bool>(type: "bit", nullable: false),
+                    BirthCountry = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true),
+                    BirthState = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true),
+                    HighSchoolCountry = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true),
+                    HighSchoolEntity = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true)
                 },
                 constraints: table =>
                 {
@@ -213,21 +255,21 @@ namespace UPZMG.Persistence.Migrations
                         column: x => x.IndigenousLanguageId,
                         principalTable: "IndigenousLanguages",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.NoAction);
                 });
 
             migrationBuilder.CreateTable(
                 name: "institutionalEvaluations",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "uuid", nullable: false),
-                    PeriodId = table.Column<Guid>(type: "uuid", nullable: false),
-                    IsEvaluated = table.Column<bool>(type: "boolean", nullable: false),
-                    PublicResults = table.Column<bool>(type: "boolean", nullable: false),
-                    URLResults = table.Column<string>(type: "text", nullable: true),
-                    SEAES_Framework = table.Column<bool>(type: "boolean", nullable: false),
-                    SEAES_Feedback = table.Column<bool>(type: "boolean", nullable: false),
-                    Observations = table.Column<string>(type: "text", nullable: true)
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    PeriodId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    IsEvaluated = table.Column<bool>(type: "bit", nullable: false),
+                    PublicResults = table.Column<bool>(type: "bit", nullable: false),
+                    URLResults = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    SEAES_Framework = table.Column<bool>(type: "bit", nullable: false),
+                    SEAES_Feedback = table.Column<bool>(type: "bit", nullable: false),
+                    Observations = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -237,21 +279,21 @@ namespace UPZMG.Persistence.Migrations
                         column: x => x.PeriodId,
                         principalTable: "periods",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.NoAction);
                 });
 
             migrationBuilder.CreateTable(
                 name: "classGroups",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "uuid", nullable: false),
-                    PeriodId = table.Column<Guid>(type: "uuid", nullable: false),
-                    CareerId = table.Column<Guid>(type: "uuid", nullable: false),
-                    Semester = table.Column<int>(type: "integer", nullable: false),
-                    GroupIdentifier = table.Column<string>(type: "character varying(10)", maxLength: 10, nullable: true),
-                    TeacherId = table.Column<Guid>(type: "uuid", nullable: false),
-                    FacilityId = table.Column<Guid>(type: "uuid", nullable: false),
-                    MaxStudents = table.Column<int>(type: "integer", nullable: false)
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    PeriodId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    CareerId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Semester = table.Column<int>(type: "int", nullable: false),
+                    GroupIdentifier = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: true),
+                    TeacherId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    FacilityId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    MaxStudents = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -261,38 +303,63 @@ namespace UPZMG.Persistence.Migrations
                         column: x => x.TeacherId,
                         principalTable: "Employee",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.NoAction);
                     table.ForeignKey(
                         name: "FK_classGroups_SchoolFacility_FacilityId",
                         column: x => x.FacilityId,
                         principalTable: "SchoolFacility",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.NoAction);
                     table.ForeignKey(
                         name: "FK_classGroups_carrers_CareerId",
                         column: x => x.CareerId,
                         principalTable: "carrers",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.NoAction);
                     table.ForeignKey(
                         name: "FK_classGroups_periods_PeriodId",
                         column: x => x.PeriodId,
                         principalTable: "periods",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.NoAction);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "userRoles",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    RoleId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_userRoles", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_userRoles_roles_RoleId",
+                        column: x => x.RoleId,
+                        principalTable: "roles",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.NoAction);
+                    table.ForeignKey(
+                        name: "FK_userRoles_systemUser_UserId",
+                        column: x => x.UserId,
+                        principalTable: "systemUser",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.NoAction);
                 });
 
             migrationBuilder.CreateTable(
                 name: "kardex",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "uuid", nullable: false),
-                    StudentId = table.Column<Guid>(type: "uuid", nullable: false),
-                    AsignatureId = table.Column<Guid>(type: "uuid", nullable: false),
-                    PeriodId = table.Column<Guid>(type: "uuid", nullable: false),
-                    Grade = table.Column<double>(type: "double precision", nullable: false),
-                    IsPassed = table.Column<bool>(type: "boolean", nullable: false),
-                    Opportunity = table.Column<int>(type: "integer", nullable: false)
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    StudentId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    AsignatureId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    PeriodId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Grade = table.Column<double>(type: "float", nullable: false),
+                    IsPassed = table.Column<bool>(type: "bit", nullable: false),
+                    Opportunity = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -302,31 +369,31 @@ namespace UPZMG.Persistence.Migrations
                         column: x => x.AsignatureId,
                         principalTable: "asignaturesPrograms",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.NoAction);
                     table.ForeignKey(
                         name: "FK_kardex_periods_PeriodId",
                         column: x => x.PeriodId,
                         principalTable: "periods",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.NoAction);
                     table.ForeignKey(
                         name: "FK_kardex_students_StudentId",
                         column: x => x.StudentId,
                         principalTable: "students",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.NoAction);
                 });
 
             migrationBuilder.CreateTable(
                 name: "scolarshipAssigneds",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "uuid", nullable: false),
-                    ScolarshipProgramId = table.Column<Guid>(type: "uuid", nullable: false),
-                    PeriodId = table.Column<Guid>(type: "uuid", nullable: false),
-                    StudentId = table.Column<Guid>(type: "uuid", nullable: false),
-                    ScolarshipObjective = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: true),
-                    FinantialSource = table.Column<int>(type: "integer", nullable: false),
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    ScolarshipProgramId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    PeriodId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    StudentId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    ScolarshipObjective = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true),
+                    FinantialSource = table.Column<int>(type: "int", nullable: false),
                     Amount = table.Column<float>(type: "real", nullable: false),
                     AssignedDate = table.Column<DateOnly>(type: "date", nullable: true)
                 },
@@ -338,28 +405,28 @@ namespace UPZMG.Persistence.Migrations
                         column: x => x.ScolarshipProgramId,
                         principalTable: "ScolarshipProgram",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.NoAction);
                     table.ForeignKey(
                         name: "FK_scolarshipAssigneds_periods_PeriodId",
                         column: x => x.PeriodId,
                         principalTable: "periods",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.NoAction);
                     table.ForeignKey(
                         name: "FK_scolarshipAssigneds_students_StudentId",
                         column: x => x.StudentId,
                         principalTable: "students",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.NoAction);
                 });
 
             migrationBuilder.CreateTable(
                 name: "studentDisabilities",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "uuid", nullable: false),
-                    StudentId = table.Column<Guid>(type: "uuid", nullable: false),
-                    DisabilityId = table.Column<Guid>(type: "uuid", nullable: false)
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    StudentId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    DisabilityId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -369,28 +436,28 @@ namespace UPZMG.Persistence.Migrations
                         column: x => x.DisabilityId,
                         principalTable: "Disabilities",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.NoAction);
                     table.ForeignKey(
                         name: "FK_studentDisabilities_students_StudentId",
                         column: x => x.StudentId,
                         principalTable: "students",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.NoAction);
                 });
 
             migrationBuilder.CreateTable(
                 name: "titulationProcesses",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "uuid", nullable: false),
-                    StudentId = table.Column<Guid>(type: "uuid", nullable: false),
-                    CareerId = table.Column<Guid>(type: "uuid", nullable: false),
-                    TitulationAssessorId = table.Column<Guid>(type: "uuid", nullable: false),
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    StudentId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    CareerId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    TitulationAssessorId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     CreditsEgressDate = table.Column<DateOnly>(type: "date", nullable: false),
                     CertificateTitulationDate = table.Column<DateOnly>(type: "date", nullable: false),
                     TitleExpeditionDate = table.Column<DateOnly>(type: "date", nullable: false),
-                    HasProfessionalLicence = table.Column<bool>(type: "boolean", nullable: false),
-                    ProfessionalLicenceNumber = table.Column<int>(type: "integer", nullable: false)
+                    HasProfessionalLicence = table.Column<bool>(type: "bit", nullable: false),
+                    ProfessionalLicenceNumber = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -400,31 +467,31 @@ namespace UPZMG.Persistence.Migrations
                         column: x => x.TitulationAssessorId,
                         principalTable: "Employee",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.NoAction);
                     table.ForeignKey(
                         name: "FK_titulationProcesses_carrers_CareerId",
                         column: x => x.CareerId,
                         principalTable: "carrers",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.NoAction);
                     table.ForeignKey(
                         name: "FK_titulationProcesses_students_StudentId",
                         column: x => x.StudentId,
                         principalTable: "students",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.NoAction);
                 });
 
             migrationBuilder.CreateTable(
                 name: "academicLoads",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "uuid", nullable: false),
-                    GroupId = table.Column<Guid>(type: "uuid", nullable: false),
-                    CourseId = table.Column<Guid>(type: "uuid", nullable: false),
-                    TeacherId = table.Column<Guid>(type: "uuid", nullable: false),
-                    FacilityId = table.Column<Guid>(type: "uuid", nullable: false),
-                    WeekHours = table.Column<int>(type: "integer", nullable: false)
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    GroupId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    CourseId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    TeacherId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    FacilityId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    WeekHours = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -434,38 +501,38 @@ namespace UPZMG.Persistence.Migrations
                         column: x => x.TeacherId,
                         principalTable: "Employee",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.NoAction);
                     table.ForeignKey(
                         name: "FK_academicLoads_SchoolFacility_FacilityId",
                         column: x => x.FacilityId,
                         principalTable: "SchoolFacility",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.NoAction);
                     table.ForeignKey(
                         name: "FK_academicLoads_asignaturesPrograms_CourseId",
                         column: x => x.CourseId,
                         principalTable: "asignaturesPrograms",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.NoAction);
                     table.ForeignKey(
                         name: "FK_academicLoads_classGroups_GroupId",
                         column: x => x.GroupId,
                         principalTable: "classGroups",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.NoAction);
                 });
 
             migrationBuilder.CreateTable(
                 name: "registrations",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "uuid", nullable: false),
-                    StudentId = table.Column<Guid>(type: "uuid", nullable: false),
-                    GroupId = table.Column<Guid>(type: "uuid", nullable: false),
-                    PeriodId = table.Column<Guid>(type: "uuid", nullable: false),
-                    InscriptionType = table.Column<int>(type: "integer", nullable: false),
-                    FinalStatus = table.Column<int>(type: "integer", nullable: false),
-                    WithdrawReasonId = table.Column<Guid>(type: "uuid", nullable: false)
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    StudentId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    GroupId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    PeriodId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    InscriptionType = table.Column<int>(type: "int", nullable: false),
+                    FinalStatus = table.Column<int>(type: "int", nullable: false),
+                    WithdrawReasonId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -475,36 +542,36 @@ namespace UPZMG.Persistence.Migrations
                         column: x => x.WithdrawReasonId,
                         principalTable: "WithdrawReason",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.NoAction);
                     table.ForeignKey(
                         name: "FK_registrations_classGroups_GroupId",
                         column: x => x.GroupId,
                         principalTable: "classGroups",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.NoAction);
                     table.ForeignKey(
                         name: "FK_registrations_periods_PeriodId",
                         column: x => x.PeriodId,
                         principalTable: "periods",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.NoAction);
                     table.ForeignKey(
                         name: "FK_registrations_students_StudentId",
                         column: x => x.StudentId,
                         principalTable: "students",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.NoAction);
                 });
 
             migrationBuilder.CreateTable(
                 name: "tutoringSessions",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "uuid", nullable: false),
-                    GroupId = table.Column<Guid>(type: "uuid", nullable: false),
-                    StudentId = table.Column<Guid>(type: "uuid", nullable: false),
-                    SessionDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    TopicDiscussion = table.Column<string>(type: "character varying(250)", maxLength: 250, nullable: true)
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    GroupId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    StudentId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    SessionDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    TopicDiscussion = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: true)
                 },
                 constraints: table =>
                 {
@@ -514,13 +581,13 @@ namespace UPZMG.Persistence.Migrations
                         column: x => x.GroupId,
                         principalTable: "classGroups",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.NoAction);
                     table.ForeignKey(
                         name: "FK_tutoringSessions_students_StudentId",
                         column: x => x.StudentId,
                         principalTable: "students",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.NoAction);
                 });
 
             migrationBuilder.CreateIndex(
@@ -662,6 +729,16 @@ namespace UPZMG.Persistence.Migrations
                 name: "IX_tutoringSessions_StudentId",
                 table: "tutoringSessions",
                 column: "StudentId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_userRoles_RoleId",
+                table: "userRoles",
+                column: "RoleId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_userRoles_UserId",
+                table: "userRoles",
+                column: "UserId");
         }
 
         /// <inheritdoc />
@@ -683,6 +760,9 @@ namespace UPZMG.Persistence.Migrations
                 name: "registrations");
 
             migrationBuilder.DropTable(
+                name: "reportsPermissions");
+
+            migrationBuilder.DropTable(
                 name: "scolarshipAssigneds");
 
             migrationBuilder.DropTable(
@@ -693,6 +773,9 @@ namespace UPZMG.Persistence.Migrations
 
             migrationBuilder.DropTable(
                 name: "tutoringSessions");
+
+            migrationBuilder.DropTable(
+                name: "userRoles");
 
             migrationBuilder.DropTable(
                 name: "asignaturesPrograms");
@@ -713,6 +796,12 @@ namespace UPZMG.Persistence.Migrations
                 name: "students");
 
             migrationBuilder.DropTable(
+                name: "roles");
+
+            migrationBuilder.DropTable(
+                name: "systemUser");
+
+            migrationBuilder.DropTable(
                 name: "Employee");
 
             migrationBuilder.DropTable(
@@ -729,3 +818,4 @@ namespace UPZMG.Persistence.Migrations
         }
     }
 }
+
