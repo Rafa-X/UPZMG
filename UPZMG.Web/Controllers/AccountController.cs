@@ -100,7 +100,7 @@ public class AccountController : Controller
                 CookieAuthenticationDefaults.AuthenticationScheme,
                 new ClaimsPrincipal(identity),
                 props);
-        _securityLogger.LogLoginSucceeded(user.Id, user.Email, roles);
+        _securityLogger.LogLoginSucceeded(user.Email, roles);
         return RedirectToAction("Index", "Home");
     }
 

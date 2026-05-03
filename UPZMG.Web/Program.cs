@@ -34,7 +34,7 @@ try
 
     builder.Services.AddScoped<UPZMG.Web.Services.ApiTokenService>();
     builder.Services.AddScoped<UPZMG.Web.Services.ApiClient>();
-    builder.Services.AddSingleton<UPZMG.Web.Services.ISecurityEventLogger, UPZMG.Web.Services.SecurityEventLogger>();
+    builder.Services.AddSingleton<UPZMG.Web.Services.ISecurityEventLogger, UPZMG.Web.Services.SecurityLogger>();
 
     builder.Services.AddAuthorization();
 
